@@ -1,3 +1,4 @@
+import FilesCreater.CreateFile;
 import Tokenizing.Sentence;
 import channel.LoggerIm;
 import random.Champion;
@@ -109,7 +110,8 @@ public class Product {
         Sentence sent = new Sentence();
         sent.word("When you read a sentence, your mind breaks it into tokens—individual words");
 
-
+        CreateFile file = new CreateFile();
+        file.createFile();
 
 
     }
