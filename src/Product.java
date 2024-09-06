@@ -1,9 +1,16 @@
+import Collections.People;
 import FilesCreater.CreateFile;
+import FilesCreater.UserModel;
+import FilesCreater.enums.MessageType;
+import FilesCreater.enums.Role;
 import Tokenizing.Sentence;
 import channel.LoggerIm;
 import random.Champion;
 import random.Password;
 import random.Payment;
+import serialization.FileController;
+import serialization.SendingReceiving;
+
 import static channel.Pusher.*;
 
 import java.math.BigDecimal;
@@ -110,8 +117,27 @@ public class Product {
         Sentence sent = new Sentence();
         sent.word("When you read a sentence, your mind breaks it into tokens—individual words");
 
-        CreateFile file = new CreateFile();
-        file.createFile();
+//        CreateFile file = new CreateFile();
+//        file.createFile();
+
+        Role role = Role.ADMIN;
+        UserModel user = new UserModel(role);
+        System.out.printf("%n%s%n",user.getUserRole());
+
+        MessageType message = MessageType.EMAIL;
+        message.process();
+
+//        SendingReceiving serializedUser = new SendingReceiving(23,"Wilbroad Mark",9000);
+//        FileController.addRecord(serializedUser.getFullName());
+//        System.out.println("Serialized user :"+ serializedUser.getFullName());
+
+        People people = new People();
+        people.getPeople();
+        People.Role student = People.Role.STUDENT;
+        people.setRole(student);
+
+        System.out.println("STUDENT ROLE :"+ people.getRole());
+
 
 
     }
