@@ -3,6 +3,7 @@ package Lambda_stream;
 import Lambda_stream.model.Gender;
 import Lambda_stream.model.User;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -40,11 +41,25 @@ public class StreamLive {
           List<User> userFemale =  this.getUser().stream()
                   .filter( user -> user.getGender().equals(Gender.FEMALE))
                   .toList();
-
           userFemale
                   .forEach(user -> {
-                         System.out.printf("Fullname :%s%nEmail :%s%n%s%n%n", user.getFullname(), user.getEmail(), user.getGender());
+                         System.out.printf("Fullname :%s%nEmail :%s%nGender :%s%nAge : %s%n%n", user.getFullname(), user.getEmail(), user.getGender(), user.getAge());
                   });
+
+          //Sort
+          List<User> sortedFemale = userFemale.stream()
+                  .sorted(
+                          Comparator.comparing(User::getFullname)
+                                  .thenComparing(User::getAge)
+                                  .thenComparing(User::getEmail)
+                  )
+                  .toList();
+
+          sortedFemale
+                  .forEach(user -> {
+                      System.out.printf("Fullname :%s%nEmail :%s%nGender :%s%nAge : %s%n%n", user.getFullname(), user.getEmail(), user.getGender(), user.getAge());
+                  });
+
 
       }
 }
