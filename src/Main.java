@@ -1,3 +1,5 @@
+import Lambda_stream.HistoryModel;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -151,6 +153,21 @@ public class Main {
 //        System.out.println(product.title);
 
               product.calculator();
+
+              HistoryModel hmodel =new HistoryModel();
+              hmodel.messageVia();
+              hmodel.Talk(hmodel);
+
+
+//              instead of passing object that implement the method messageVia But just pass implementation
+//              aim is to override what is implemented inside TalkWithLambda
+              hmodel.TalkWithLambda(
+                       ()->{
+                           System.out.println("After overriding method messageVia through lambda");
+              }
+              );
+
+
 
           }
           catch (NullPointerException e) {

@@ -135,9 +135,7 @@ public class Product {
         people.getPeople();
         People.Role student = People.Role.STUDENT;
         people.setRole(student);
-
         System.out.println("STUDENT ROLE :"+ people.getRole());
-
 
 
     }
