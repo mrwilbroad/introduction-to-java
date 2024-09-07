@@ -24,6 +24,10 @@ public class HistoryModel implements  History{
     public  void Talk(History message){
        System.out.println("use case for Passing Interface as argument");
        message.messageVia();
+
+       System.out.printf("%nStreaming class start here%n");
+       StreamLive live = new StreamLive();
+       live.Stream();
     }
 
     /**
