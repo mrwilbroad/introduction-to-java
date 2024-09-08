@@ -1,4 +1,6 @@
 import Lambda_stream.HistoryModel;
+import Lambda_stream.Recursion;
+import database.Employee;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -166,6 +168,12 @@ public class Main {
                            System.out.println("After overriding method messageVia through lambda");
               }
               );
+//              System.out.printf("%nRecursion start %n");
+//              Recursion rec = new Recursion();
+//              rec.recursion();
+
+              Employee emp = new Employee();
+              emp.getEmployee();
 
 
 
