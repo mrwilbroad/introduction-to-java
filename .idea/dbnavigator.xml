@@ -33,7 +33,7 @@
     <filter-actions connection-id="f1b8ef16-e386-4dc3-8aad-64a069093b66" dataset="Java_Learning.employee" active-filter-id="" />
   </component>
   <component name="DBNavigator.Project.FileConnectionMappingManager">
-    <mapping file-url="file://$PROJECT_DIR$" connection-id="virtual-mysql-connection" session-id="" current-schema="" />
+    <mapping file-url="file://$PROJECT_DIR$" connection-id="virtual-mysql-connection" session-id="MAIN" current-schema="" />
   </component>
   <component name="DBNavigator.Project.ObjectQuickFilterManager">
     <last-used-operator value="EQUAL" />
