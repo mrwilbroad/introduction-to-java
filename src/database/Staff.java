@@ -4,7 +4,9 @@ import Connection.Model.Model;
 import database.types.Gender;
 
 import java.sql.*;
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Currency;
 import java.util.List;
 
 public class Staff extends Model {
@@ -99,12 +101,14 @@ public class Staff extends Model {
 
     public String getStaffInfo() {
         String full_name = getFirst_name().concat(" ").concat(getLast_name());
+        NumberFormat currency = NumberFormat.getCurrencyInstance();
+        currency.setCurrency(Currency.getInstance("TZS"));
         return String.format("id :%s%nFullname :%s%nEmail :%s%nGender :%s%nSalary :%s%nDepartment :%s%nAge :%s",
                 id,
                 full_name,
                 email,
                 gender,
-                salary,
+                currency.format(salary),
                 department,
                 age
         );
@@ -123,29 +127,30 @@ public class Staff extends Model {
 
             while (result.next()){
                 Staff staff = new Staff();
-
                 staff.id = result.getInt("id");
                 staff.first_name = result.getString("first_name");
                 staff.last_name = result.getString("last_name");
                 staff.email = result.getString("email");
                 staff.gender = Gender.valueOf(result.getString("gender"));
                 staff.age = result.getInt("age");
-                staff.salary = result.getDouble("salary");
+                staff.salary =   result.getDouble("salary");
                 staff.region = result.getString("region");
                 staff.department = result.getString("department");
                 staffs.add(staff);
             }
 
         }catch (SQLException e){
-            this.Close();
+
             throw new RuntimeException(e);
 
+        }finally {
+            this.Close();
         }
 
         return staffs;
     }
 
-    public boolean isSaved(Staff staff){
+    public boolean isSaved(Staff staff) throws SQLException {
         int result = 0;
         String sql = "INSERT INTO employee(first_name,last_name,email,gender,age,salary,region,department) VALUES(?,?,?,?,?,?,?,?)";
 
@@ -153,6 +158,7 @@ public class Staff extends Model {
                  Connection connection = this.connection();
                  PreparedStatement preparedStatement = connection.prepareStatement(sql)
          ){
+
              preparedStatement.setString(1,staff.first_name);
              preparedStatement.setString(2,staff.last_name);
              preparedStatement.setString(3,staff.email);
@@ -163,10 +169,13 @@ public class Staff extends Model {
              preparedStatement.setString(8,staff.department);
              result = preparedStatement.executeUpdate();
 
+
          }catch(SQLException e){
-             this.Close();
+
              throw new RuntimeException(e);
 
+         }finally {
+             this.Close();
          }
          return result != 0;
     }

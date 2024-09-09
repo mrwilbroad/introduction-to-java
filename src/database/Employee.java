@@ -12,21 +12,7 @@ import java.util.List;
 public class Employee {
 
 
-    public  void showStaffs (){
-        Staff staff = new Staff();
 
-        List<Staff> staffs = staff.all();
-//             all staffs
-        staffs.forEach(staf -> System.out.printf("%s%n%n",staf.getStaffInfo()));
-
-        List<Staff> FilteredStaff = staffs.stream()
-                .filter(thisStaff -> thisStaff.getAge() < 40)
-                .toList();
-
-//             staffs with age below 40
-        FilteredStaff.forEach(staf -> System.out.printf("%s%n%n",staf.getStaffInfo()));
-
-    }
     public  void getEmployee(){
          try
          {
@@ -36,7 +22,6 @@ public class Employee {
              List<Staff> staffs = staff.all();
 //             all staffs
              staffs.forEach(staf -> System.out.printf("%s%n%n",staf.getStaffInfo()));
-
              List<Staff> FilteredStaff = staffs.stream()
                      .filter(thisStaff -> thisStaff.getAge() < 40)
                      .toList();

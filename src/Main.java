@@ -83,7 +83,6 @@ public class Main {
         System.out.println("text substring :"+ text.substring(0,5));
         System.out.println("text length :"+ text.concat(" | Software Developer"));
 
-
         String word;
         word = "Tanzania for Life \n\"Being software developer from Tanzania\"";
         System.out.println("Word is\t"+ word);
