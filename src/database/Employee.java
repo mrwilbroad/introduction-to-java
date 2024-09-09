@@ -16,13 +16,33 @@ public class Employee {
          {
 
              Staff staff = new Staff();
+
              List<Staff> staffs = staff.all();
              staffs.forEach(staf -> {
                  System.out.printf("%s%n%n",staf.getStaffInfo());
              });
 
+//             Staff newStaff = new Staff();
+//             Gender gender = Gender.F;
+//             newStaff.setFirst_name("Yoel");
+//             newStaff.setLast_name("Kimario");
+//             newStaff.setEmail("Yoel.Kimario@eganet.go.tz");
+//             newStaff.setGender(gender);
+//             newStaff.setRegion("Morogoro");
+//             newStaff.setDepartment("Computer science and Engineering");
+//             newStaff.setSalary(45000.94);
+//             newStaff.setAge(23);
+//
+//             boolean isSaved = newStaff.isSaved(newStaff);
+//             if(isSaved)
+//                 System.out.println("Staff is successfull saved to database");
+//             else
+//                 System.out.println("operation failed , please try again");
+
+
+
          }catch (Exception e){
-             System.out.println("Connection to db Exception :"+ e.getMessage());
+             System.err.println("Exception :"+ e.getMessage());
          }
     }
 }

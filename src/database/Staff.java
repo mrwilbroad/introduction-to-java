@@ -3,17 +3,16 @@ package database;
 import Connection.Model.Model;
 import database.types.Gender;
 
-import javax.sql.RowSet;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Staff extends Model {
 
     protected String driver = "postgres";
+
+
+
 
     @Override
     protected String getDriver() {
@@ -31,9 +30,6 @@ public class Staff extends Model {
     private String department;
     private Gender gender;
 
-
-
-    private final Connection connection = this.connection();
 
     public int getId() {
         return id;
@@ -66,6 +62,41 @@ public class Staff extends Model {
         return department;
     }
 
+    public void setFirst_name(String first_name) {
+        this.first_name = first_name;
+
+    }
+    public void setLast_name(String last_name) {
+        this.last_name = last_name;
+
+    }
+    public void setEmail(String email) {
+        this.email = email;
+
+    }
+    public void setGender(Gender gender) {
+        this.gender = gender;
+
+    }
+
+    public  void setRegion(String region) {
+        this.region = region;
+
+    }
+    public void setSalary(double salary) {
+        this.salary = salary;
+
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+
+    }
+
     public String getStaffInfo() {
         String full_name = getFirst_name().concat(" ").concat(getLast_name());
         return String.format("id :%s%nFullname :%s%nEmail :%s%nGender :%s%nSalary :%s%nDepartment :%s%nAge :%s",
@@ -81,11 +112,15 @@ public class Staff extends Model {
 
     public List<Staff>  all()
     {
-        try{
-            Statement statement = this.connection.createStatement();
-            String Sql = "SELECT * FROM employee WHERE id < 90;";
-            ResultSet result = statement.executeQuery(Sql);
-            List<Staff> staffs = new ArrayList<>();
+        String Sql = "SELECT * FROM employee;";
+        List<Staff> staffs = new ArrayList<>();
+
+        try(
+                Connection connection = this.connection();
+                Statement statement = connection.createStatement();
+                ResultSet result = statement.executeQuery(Sql);
+                ){
+
             while (result.next()){
                 Staff staff = new Staff();
 
@@ -100,11 +135,47 @@ public class Staff extends Model {
                 staff.department = result.getString("department");
                 staffs.add(staff);
             }
-            this.connection.close();
-            return staffs;
-
 
         }catch (SQLException e){
+            this.Close();
+            throw new RuntimeException(e);
+
+        }
+
+        return staffs;
+    }
+
+    public boolean isSaved(Staff staff){
+        int result = 0;
+        String sql = "INSERT INTO employee(first_name,last_name,email,gender,age,salary,region,department) VALUES(?,?,?,?,?,?,?,?)";
+
+         try(
+                 Connection connection = this.connection();
+                 PreparedStatement preparedStatement = connection.prepareStatement(sql)
+         ){
+             preparedStatement.setString(1,staff.first_name);
+             preparedStatement.setString(2,staff.last_name);
+             preparedStatement.setString(3,staff.email);
+             preparedStatement.setString(4,staff.gender.name());
+             preparedStatement.setInt(5,staff.age);
+             preparedStatement.setDouble(6,staff.salary);
+             preparedStatement.setString(7,staff.region);
+             preparedStatement.setString(8,staff.department);
+             result = preparedStatement.executeUpdate();
+
+         }catch(SQLException e){
+             this.Close();
+             throw new RuntimeException(e);
+
+         }
+         return result != 0;
+    }
+
+    public  void  Close()
+    {
+        try {
+            this.connection().close();
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
